@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Django Book review</title>
+    <meta name="description" content="Free Bootstrap 4 Admin Theme | Pike Admin">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'book/assets/images/favicon.ico' %}">
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'book/assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome CSS -->
+    <link href="{% static 'book/assets/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Custom CSS -->
+    <link href="{% static 'book/assets/css/style.css' %}" rel="stylesheet" type="text/css" />
+    <!-- BEGIN CSS for this page -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
+    <!-- END CSS for this page -->
+</head>
+<body class="adminbody">
+<div id="main">
+	<!-- top bar navigation -->
+	{% include 'user/layout/header.html' %}
+	<!-- End Navigation -->
+	<!-- Left Sidebar -->
+	{% include 'user/layout/sidebar.html' %}
+	<!-- End Sidebar -->
+    <div class="content-page">
+		<!-- Start content -->
+        {% block content%}
+        {% endblock%}
+		<!-- END content -->
+
+    </div>
+	<!-- END content-page -->
+	{% include 'user/layout/footer.html' %}
+
+</div>
+<!-- END main -->
+<script src="{% static 'book/assets/js/modernizr.min.js' %}"></script>
+<script src="{% static 'book/assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'book/assets/js/moment.min.js' %}"></script>
+
+<script src="{% static 'book/assets/js/popper.min.js' %}"></script>
+<script src="{% static 'book/assets/js/bootstrap.min.js' %}"></script>
+
+<script src="{% static 'book/assets/js/detect.js' %}"></script>
+<script src="{% static 'book/assets/js/fastclick.js' %}"></script>
+<script src="{% static 'book/assets/js/jquery.blockUI.js' %}"></script>
+<script src="{% static 'book/assets/js/jquery.nicescroll.js' %}"></script>
+
+<!-- App js -->
+<script src="{% static 'book/assets/js/pikeadmin.js' %}"></script>
+
+<!-- BEGIN Java Script for this page -->
+<!--	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js' %}"></script>-->
+<!--	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js' %}"></script>-->
+
+	<!-- Counter-Up-->
+<!--	<script src="{% static 'book/assets/plugins/waypoints/lib/jquery.waypoints.min.js' %}"></script>-->
+<!--	<script src="{% static 'book/assets/plugins/counterup/jquery.counterup.min.js' %}"></script>-->
+</body>
+</html>

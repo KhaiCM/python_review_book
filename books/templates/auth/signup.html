@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SignIn</title>
+    <link rel="shortcut icon" href="{% static 'book/assets/images/favicon.ico' %}">
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'book/assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome CSS -->
+    <link href="{% static 'book/assets/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Custom CSS -->
+    <link href="{% static 'book/assets/css/style.css' %}" rel="stylesheet" type="text/css" />
+    <!-- BEGIN CSS for this page -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
+</head>
+<body>
+    <div class="row justify-content-center">
+        <div class="col col-md-5 mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Sign up Form</h2>
+                        <form method="post">
+                            {% csrf_token %}
+                            {% for field in form %}
+                            <p>
+                                {{ field.label_tag }}<br>
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <small style="color: grey">{{ field.help_text }}</small>
+                                {% endif %}
+                                {% for error in field.errors %}
+                                    <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            </p>
+                            {% endfor %}
+                            <button type="submit">Sign up</button>
+                        </form>
+                    <a href="{% url 'books:login' %}" class="text-center">I already have a account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

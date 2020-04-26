@@ -1,0 +1,187 @@
+{% extends 'user/layout/app.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+	<div class="container-fluid">
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="breadcrumb-holder">
+				<h1 class="main-title float-left">Detail Book</h1>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+		<!-- end row -->
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" style="margin-left: 20%;">
+				<div class="card mb-3">
+					<div class="card-header">
+						<h3 style="text-align: center;"><i class="fa fa-book"> {{ book.name }}</i></h3>
+					</div>
+					<div class="card-body">
+						<div style="display: box"><img class="img-fluid" data-toggle="magnify" src="/{{ book.image }}" alt="Sample Image"></div>
+					</div>
+					<div class="card-body">
+						<b>Author: </b>
+						<span>{{ book.author }}</span>
+					</div>
+					<div class="card-body">
+						<b>Desc: </b>
+						<span>{{ book.description }}</span>
+					</div>
+				</div><!-- end card-->
+			</div>
+		</div>
+        <div class="row">
+            {% if mark.id == 0 or mark.status == 0 %}
+            <form action="{% url 'books:mark' mark.id %}" method="post">
+                {% csrf_token %}
+                <input
+                    type="hidden"
+                    name="current"
+                    value="{{request.get_full_path}}"
+                >
+                <input
+                    type="hidden"
+                    name="reading"
+                    value="{{ book.id }}"
+                >
+                <button type="submit" class="btn btn-outline-info">
+                    <i class="fa fa-book"></i>
+                    Reading
+                </button>
+            </form>
+            <form  action="{% url 'books:mark' mark.id %}" method="post">
+                 {% csrf_token %}
+                <input
+                    type="hidden"
+                    name="current"
+                    value="{{request.get_full_path}}"
+                >
+                <input
+                    type="hidden"
+                    name="read"
+                    value="{{ book.id }}"
+                >
+                <button type="submit" class="btn btn-outline-success">
+                    <i class="fa fa-check"></i>
+                    Read
+                </button>
+             </form>
+            {% elif mark.status == 1 %}
+             <form action="{% url 'books:mark' mark.id %}" method="post">
+                 {% csrf_token %}
+                 <input
+                    type="hidden"
+                    name="current"
+                    value="{{request.get_full_path}}"
+                 >
+                  <input
+                    type="hidden"
+                    name="read"
+                 >
+                <button type="submit" class="btn btn-info">
+                    <i class="fa fa-book"></i>
+                    Reading
+                </button>
+             </form>
+            {% elif mark.status == 2 %}
+            <form action="{% url 'books:mark' mark.id %}" method="post">
+                 {% csrf_token %}
+                <input
+                    type="hidden"
+                    name="current"
+                    value="{{request.get_full_path}}"
+                 >
+                 <input
+                    type="hidden"
+                    name="unread"
+                 >
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-check"></i>
+                    Read
+                </button>
+            </form>
+            {% endif %}
+
+            {% if mark.id == 0 or mark.favorite == 0 %}
+            <form action="{% url 'books:mark' mark.id %}" method="post">
+                {% csrf_token %}
+                <input
+                    type="hidden"
+                    name="current"
+                    value="{{request.get_full_path}}"
+                >
+                <input
+                    type="hidden"
+                    name="favorite"
+                    value="{{ book.id }}"
+                >
+                <button type="submit" class="btn btn-outline-danger">
+                    <i class="fa fa-heart"></i>
+                    Love
+                </button>
+            </form>
+            {% else %}
+             <form action="{% url 'books:mark' mark.id %}" method="post">
+                {% csrf_token %}
+                <input
+                    type="hidden"
+                    name="current"
+                    value="{{request.get_full_path}}"
+                >
+                <button type="submit" class="btn btn-danger">
+                    <i class="fa fa-heart"></i>
+                    Love
+                </button>
+             </form>
+            {% endif %}
+        </div>
+    </div>
+	</div>
+	<!-- END container-fluid -->
+        <div class="card mt-5">
+            <div class="card-body">
+                <h2>Comment Book</h2>
+                <hr>
+                <div class="list-review">
+                    <div class="col col-md-11 ml-3 text-dark text-custom">
+                        {% for review in review %}
+                        <hr>
+                            <h6><strong>{{ review.user }}</strong></h6>
+                            {{ review.review }}
+                            <br>
+                            <span>
+                                <small>{{ review.created_at }}</small>
+                            </span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="add-comment">
+            <form  method="post" action="{% url 'books:add-review' %}"class="form-horizontal">
+                {% csrf_token %}
+                <input type="hidden" name="book_id" value="{{ book.id }}" />
+                <div class="form-group">
+                    <label for="comment" class="col-sm-2 control-label">Comment</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" name="comment" id="addComment" rows="5" required></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button class="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment">comment</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+		<!-- END content -->
+{% endblock %}
